@@ -16,4 +16,6 @@ add_library(c_frontend_o OBJECT
   tdi_table_operations_c.cpp
 )
 
+target_include_directories(c_frontend_o PRIVATE ${TDI_INCLUDE_DIR})
+
 target_link_libraries(c_frontend_o target_sys)
