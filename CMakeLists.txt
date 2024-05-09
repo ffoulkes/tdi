@@ -20,11 +20,9 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third-party)
 include_directories(.)
 
-if(STANDALONE)
-  include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third-party/target-syslibs/include)
-  include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third-party/target-utils/include)
+if(TDI_GTEST)
+  add_subdirectory(third-party/googletest)
 endif()
-add_subdirectory(third-party)
 
 set(C_CXX_FLAGS "-Wall -Wextra -Werror -Wshadow -Wpedantic -Wno-missing-field-initializers ")
 set(CMAKE_SHARED_LINKER_FLAGS "-Wl,-z,defs")
