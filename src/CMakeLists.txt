@@ -1,9 +1,9 @@
+# Copyright 2021-2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
 
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+add_subdirectory(c_frontend)
 
-set(TDI_SRCS
+add_library(tdi SHARED
   tdi_init.cpp
   tdi_info.cpp
   tdi_target.cpp
@@ -15,30 +15,19 @@ set(TDI_SRCS
   #tdi_info_impl.cpp
   #tdi_table_info.cpp
   tdi_utils.cpp
+  $<TARGET_OBJECTS:c_frontend_o>
 )
 
-set(TDI_C_FRONTEND_SRCS
-  c_frontend/tdi_init_c.cpp
-  c_frontend/tdi_session_c.cpp
-  c_frontend/tdi_table_c.cpp
-  c_frontend/tdi_table_info_c.cpp
-  c_frontend/tdi_table_data_c.cpp
-  c_frontend/tdi_table_key_c.cpp
-  c_frontend/tdi_table_attributes_c.cpp
-  c_frontend/tdi_table_operations_c.cpp
-  c_frontend/tdi_table_notifications_c.cpp
-  #c_frontend/tdi_learn_c.cpp
-  c_frontend/tdi_state_c.cpp
-  c_frontend/tdi_info_c.cpp
+target_include_directories(tdi PUBLIC
+  $<BUILD_INTERFACE:${TDI_INCLUDE_DIR}>
+  $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
-add_library(tdi_o OBJECT ${TDI_SRCS} ${TDI_C_FRONTEND_SRCS})
-add_library(tdi SHARED $<TARGET_OBJECTS:tdi_o>)
+target_link_libraries(tdi PUBLIC target_utils
+  target_sys
+  tdi_json_parser
+)
 
-target_link_libraries(tdi PUBLIC target_utils target_sys tdi_json_parser)
-
-add_subdirectory(arch/tna)
-add_subdirectory(arch/pna)
-add_subdirectory(arch/psa)
+add_subdirectory(arch)
 add_subdirectory(targets/dummy)
 add_subdirectory(tdi_json_parser)

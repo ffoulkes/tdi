@@ -1,16 +1,32 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.15)
 
-project(libtdi VERSION 0.1 LANGUAGES CXX)
+project(libtdi VERSION 1.1.0 LANGUAGES CXX)
+
+include(CMakePrintHelpers)
+include(GNUInstallDirs)
 
 ENABLE_TESTING()
+
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD 11)
 set(CXX_STANDARD_REQUIRED ON)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_INSTALL_PREFIX}/lib")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_INSTALL_PREFIX}/lib")
+
 set(CMAKE_BUILD_TYPE "RelWithDebInfo")
+
+find_package(targetsys)
+if(NOT targetsys_FOUND)
+  message(FATAL_ERROR "Could not find targetsys package")
+endif()
+
+find_package(targetutils)
+if(NOT targetutils_FOUND)
+  message(FATAL_ERROR "Could not find targetutils package")
+endif()
+
+set(TDI_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 file(COPY include/ DESTINATION ${CMAKE_INSTALL_PREFIX}/include/
   PATTERN "*.doxy" EXCLUDE
