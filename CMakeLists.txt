@@ -28,10 +28,6 @@ endif()
 
 set(TDI_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-file(COPY include/ DESTINATION ${CMAKE_INSTALL_PREFIX}/include/
-  PATTERN "*.doxy" EXCLUDE
-  PATTERN "*.am" EXCLUDE)
-
 if(TDI_GTEST)
   add_subdirectory(third-party/googletest)
 endif()
@@ -47,6 +43,22 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${C_CXX_FLAGS}")
 
 
 add_subdirectory(src)
+
+###########
+# install #
+###########
+
+install(
+  TARGETS tdi tdi_pna tdi_psa tdi_tna
+  COMPONENT tdi
+  ARCHIVE DESTINATION ${CMAKE_INCLUDE_LIBDIR}
+  LIBRARY DESTINATION ${CMAKE_INCLUDE_LIBDIR}
+)
+
+install(
+  DIRECTORY include/
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
 
 #Building tdi doxygen
 find_package(Doxygen)
