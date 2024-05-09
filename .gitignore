@@ -1,3 +1,6 @@
+/.vscode/
+/.vslick/
+
 *.swp
 *.swo
 cscope*.out
