@@ -7,3 +7,5 @@ add_library(tdi_psa SHARED
 )
 
 target_link_libraries(tdi_psa PUBLIC tdi)
+
+set_target_version(tdi_psa)

@@ -7,3 +7,5 @@ add_library(tdi_pna SHARED
 )
 
 target_link_libraries(tdi_pna PUBLIC tdi)
+
+set_target_version(tdi_pna)

@@ -8,3 +8,4 @@ add_library(tdi_dummy SHARED
 
 target_link_libraries(tdi_dummy PUBLIC tdi_tna)
 
+set_target_version(tdi_dummy)

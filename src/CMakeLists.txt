@@ -28,6 +28,8 @@ target_link_libraries(tdi PUBLIC target_utils
   tdi_json_parser
 )
 
+set_target_version(tdi)
+
 add_subdirectory(arch)
 add_subdirectory(targets/dummy)
 add_subdirectory(tdi_json_parser)

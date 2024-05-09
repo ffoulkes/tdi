@@ -18,6 +18,8 @@ target_link_libraries(tdi_json_parser PUBLIC
   target_utils
 )
 
+set_target_version(tdi_json_parser)
+
 if(TDI_GTEST)
   add_subdirectory(tests)
 endif()
