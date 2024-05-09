@@ -8,6 +8,7 @@ project(libtdi VERSION 1.1.0 LANGUAGES CXX)
 #-----------------------------------------------------------------------
 # Modules
 #-----------------------------------------------------------------------
+include(CMakePackageConfigHelpers)
 include(CMakePrintHelpers)
 include(GNUInstallDirs)
 
@@ -63,14 +64,50 @@ endif()
 #-----------------------------------------------------------------------
 # Install
 #-----------------------------------------------------------------------
+set(EXPORTNAME tdi)
+set(EXPORTSTEM tdi)
+set(COMPONENT tdi)
+
 install(
-  TARGETS tdi tdi_pna tdi_psa tdi_tna
-  COMPONENT tdi
+  TARGETS tdi tdi_json_parser tdi_pna tdi_psa tdi_tna
+  EXPORT ${EXPORTNAME}
+  COMPONENT ${COMPONENT}
   ARCHIVE DESTINATION ${CMAKE_INCLUDE_LIBDIR}
   LIBRARY DESTINATION ${CMAKE_INCLUDE_LIBDIR}
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 install(
   DIRECTORY include/
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+#-----------------------------------------------------------------------
+# CMake configuration file
+#-----------------------------------------------------------------------
+install(EXPORT ${EXPORTNAME}
+  FILE ${EXPORTSTEM}-targets.cmake
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${EXPORTSTEM}
+)
+
+configure_package_config_file(
+  cmake/${EXPORTSTEM}-config.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/${EXPORTSTEM}-config.cmake
+  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${EXPORTSTEM}
+)
+
+install(
+  FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/${EXPORTSTEM}-config.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/${EXPORTSTEM}-config-version.cmake
+  COMPONENT
+    ${COMPONENT}
+  DESTINATION
+    ${CMAKE_INSTALL_LIBDIR}/cmake/${EXPORTSTEM}
+)
+
+write_basic_package_version_file(
+  ${CMAKE_CURRENT_BINARY_DIR}/${EXPORTSTEM}-config-version.cmake
+  VERSION ${PROJECT_VERSION}
+  COMPATIBILITY SameMajorVersion
 )

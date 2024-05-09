@@ -1,0 +1,10 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+find_dependency(targetsys)
+find_dependency(targetutils)
+
+include("${CMAKE_CURRENT_LIST_DIR}/targetutils-targets.cmake")
+
+check_required_components(targetutils)
