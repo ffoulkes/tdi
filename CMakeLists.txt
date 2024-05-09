@@ -28,6 +28,13 @@ if(NOT targetutils_FOUND)
   message(FATAL_ERROR "Could not find targetutils package")
 endif()
 
+if(TDI_GTEST)
+  find_package(GTest)
+  if(NOT GTest_FOUND)
+    message(FATAL_ERROR "Could not find GTest package")
+  endif()
+endif()
+
 #-----------------------------------------------------------------------
 # Build
 #-----------------------------------------------------------------------
@@ -39,10 +46,6 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_BUILD_TYPE "RelWithDebInfo")
 
 set(TDI_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
-
-if(TDI_GTEST)
-  add_subdirectory(third-party/googletest)
-endif()
 
 set(C_CXX_FLAGS "-Wall -Wextra -Werror -Wshadow -Wpedantic -Wno-missing-field-initializers ")
 set(CMAKE_SHARED_LINKER_FLAGS "-Wl,-z,defs")
