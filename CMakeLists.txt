@@ -88,8 +88,10 @@ install(
 #-----------------------------------------------------------------------
 # CMake configuration file
 #-----------------------------------------------------------------------
-install(EXPORT ${EXPORTNAME}
+install(
+  EXPORT ${EXPORTNAME}
   FILE ${EXPORTSTEM}-targets.cmake
+  NAMESPACE tdi::
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${EXPORTSTEM}
 )
 
