@@ -58,7 +58,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${C_CXX_FLAGS}")
 
 add_subdirectory(src)
 
-option(BUILD_DOCS "Enable Doxygen generation target" FALSE)
+option(BUILD_DOCS "Enable Doxygen generation" FALSE)
 
 if(BUILD_DOCS)
   add_subdirectory(docs)
