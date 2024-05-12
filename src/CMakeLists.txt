@@ -20,15 +20,17 @@ add_library(tdi SHARED
 
 target_include_directories(tdi PUBLIC
   $<BUILD_INTERFACE:${TDI_INCLUDE_DIR}>
-  $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR}>
+  $<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
-target_link_libraries(tdi PUBLIC target_utils
+target_link_libraries(tdi PUBLIC
   target_sys
   tdi_json_parser
 )
 
 set_target_version(tdi)
+
+set_target_properties(tdi PROPERTIES INSTALL_RPATH "$ORIGIN")
 
 add_subdirectory(arch)
 add_subdirectory(targets/dummy)

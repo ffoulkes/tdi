@@ -3,7 +3,7 @@
 
 cmake_minimum_required(VERSION 3.15)
 
-project(libtdi VERSION 1.1.0 LANGUAGES CXX)
+project(tdi VERSION 1.1.0 LANGUAGES CXX)
 
 #-----------------------------------------------------------------------
 # Modules
@@ -22,17 +22,20 @@ find_package(targetsys)
 if(NOT targetsys_FOUND)
   message(FATAL_ERROR "Could not find targetsys package")
 endif()
+message(STATUS "Found targetsys version ${targetsys_VERSION}")
 
-find_package(targetutils)
-if(NOT targetutils_FOUND)
-  message(FATAL_ERROR "Could not find targetutils package")
+find_package(cJSON)
+if(NOT cJSON_FOUND)
+  message(FATAL_ERROR "Could not find cJSON package")
 endif()
+message(STATUS "Found cJSON version ${cJSON_VERSION}")
 
 if(TDI_GTEST)
   find_package(GTest)
   if(NOT GTest_FOUND)
     message(FATAL_ERROR "Could not find GTest package")
   endif()
+  message(STATUS "Found googletest version ${gtest_VERSION}")
 endif()
 
 #-----------------------------------------------------------------------
@@ -67,14 +70,16 @@ endif()
 #-----------------------------------------------------------------------
 # Install
 #-----------------------------------------------------------------------
+# EXPORT parameter value
 set(EXPORTNAME tdi)
+
+# cmake config file prefix
 set(EXPORTSTEM tdi)
-set(COMPONENT tdi)
 
 install(
   TARGETS tdi tdi_json_parser tdi_pna tdi_psa tdi_tna
   EXPORT ${EXPORTNAME}
-  COMPONENT ${COMPONENT}
+  COMPONENT tdi
   ARCHIVE DESTINATION ${CMAKE_INCLUDE_LIBDIR}
   LIBRARY DESTINATION ${CMAKE_INCLUDE_LIBDIR}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
@@ -106,7 +111,7 @@ install(
     ${CMAKE_CURRENT_BINARY_DIR}/${EXPORTSTEM}-config.cmake
     ${CMAKE_CURRENT_BINARY_DIR}/${EXPORTSTEM}-config-version.cmake
   COMPONENT
-    ${COMPONENT}
+    tdi
   DESTINATION
     ${CMAKE_INSTALL_LIBDIR}/cmake/${EXPORTSTEM}
 )

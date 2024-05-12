@@ -10,15 +10,17 @@ add_library(tdi_json_parser SHARED
 
 target_include_directories(tdi_json_parser PUBLIC
   $<BUILD_INTERFACE:${TDI_INCLUDE_DIR}>
-  $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR}>
+  $<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
 target_link_libraries(tdi_json_parser PUBLIC
+  cjson
   target_sys
-  target_utils
 )
 
 set_target_version(tdi_json_parser)
+
+set_target_properties(tdi_json_parser PROPERTIES INSTALL_RPATH "$ORIGIN")
 
 if(TDI_GTEST)
   add_subdirectory(tests)
