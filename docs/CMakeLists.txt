@@ -13,11 +13,7 @@ set(DOXYFILE ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
 # Value of the Doxygen INPUT parameter
 set(DOXYGEN_INPUT ${TDI_INCLUDE_DIR}/tdi)
 
-configure_file(
-  Doxyfile.in
-  ${DOXYFILE}
-  @ONLY
-)
+configure_file(Doxyfile.in ${DOXYFILE} @ONLY)
 
 add_custom_target(
   doc-tdi

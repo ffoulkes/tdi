@@ -6,6 +6,7 @@ add_library(tdi_psa SHARED
   #psa_target.cpp
 )
 
+# header files only
 target_link_libraries(tdi_psa PUBLIC tdi)
 
 set_target_version(tdi_psa)

@@ -8,4 +8,6 @@ add_library(tdi_pna SHARED
 
 target_link_libraries(tdi_pna PUBLIC tdi)
 
+set_target_properties(tdi_pna PROPERTIES INSTALL_RPATH "$ORIGIN")
+
 set_target_version(tdi_pna)

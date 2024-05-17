@@ -18,23 +18,14 @@ include(SetTargetVersion)
 #-----------------------------------------------------------------------
 # Packages
 #-----------------------------------------------------------------------
-find_package(targetsys)
-if(NOT targetsys_FOUND)
-  message(FATAL_ERROR "Could not find targetsys package")
-endif()
+find_package(targetsys REQUIRED)
 message(STATUS "Found targetsys version ${targetsys_VERSION}")
 
-find_package(cJSON)
-if(NOT cJSON_FOUND)
-  message(FATAL_ERROR "Could not find cJSON package")
-endif()
+find_package(cJSON REQUIRED)
 message(STATUS "Found cJSON version ${cJSON_VERSION}")
 
 if(TDI_GTEST)
-  find_package(GTest)
-  if(NOT GTest_FOUND)
-    message(FATAL_ERROR "Could not find GTest package")
-  endif()
+  find_package(GTest REQUIRED)
   message(STATUS "Found googletest version ${gtest_VERSION}")
 endif()
 
