@@ -18,10 +18,10 @@ include(SetTargetVersion)
 #-----------------------------------------------------------------------
 # Packages
 #-----------------------------------------------------------------------
-find_package(targetsys REQUIRED)
+find_package(targetsys REQUIRED CONFIG)
 message(STATUS "Found targetsys version ${targetsys_VERSION}")
 
-find_package(cJSON REQUIRED)
+find_package(cJSON REQUIRED CONFIG)
 message(STATUS "Found cJSON version ${cJSON_VERSION}")
 
 if(TDI_GTEST)
