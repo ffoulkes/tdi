@@ -81,6 +81,12 @@ install(
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
+install(
+  DIRECTORY tdi_python/
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/python
+  FILES_MATCHING PATTERN "*.py"
+)
+
 #-----------------------------------------------------------------------
 # CMake configuration file
 #-----------------------------------------------------------------------
